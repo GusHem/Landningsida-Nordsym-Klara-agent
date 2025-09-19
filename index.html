@@ -150,11 +150,11 @@
         }
 
         .app-screen {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: transparent;
-            opacity: 1; visibility: visible; transition: opacity 0.4s ease, visibility 0.4s ease;
+            /* Borttaget: position: absolute; top: 0; left: 0; right: 0; bottom: 0; */
             padding: 0.75rem; /* Padding för innehåll i app-skärmar */
+            flex-shrink: 0; /* Förhindrar att skärmarna krymper i flex-containern */
         }
-        .app-screen.hidden { opacity: 0; visibility: hidden; }
+        /* Borttaget: .app-screen.hidden { opacity: 0; visibility: hidden; } */
         .upload-placeholder {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             width: 100%; height: 100%; border: 2px dashed rgba(255,255,255,0.2); border-radius: 1rem;
@@ -375,54 +375,57 @@
                                 <div class="phone-notch"></div>
                                 <div class="phone-screen">
                                     <div class="flex-grow relative overflow-hidden rounded-3xl">
-                                        <!-- Skärm 0: Chatt med Klara -->
-                                        <div id="app-screen-0" class="app-screen">
-                                            <div class="app-chat-container">
-                                                <div id="app-chat-messages" class="is-idle">
-                                                    <div class="relative text-center p-4">
-                                                         <div id="klara-glow" class="absolute inset-0 m-auto w-40 h-40 blur-3xl rounded-full"></div>
-                                                         <img src="https://raw.githubusercontent.com/GusHem/GusHem-Ugglan-Klara/refs/heads/main/frilagd-bild.svg" alt="Klara" class="relative w-20 h-20 mx-auto mt-4 mb-4 animate-float">
-                                                         <p class="relative font-bold text-white text-base">Hej! Jag är Klara.</p>
-                                                         <p class="relative text-slate-300 text-xs mt-1">Fråga mig om att boka catering!</p>
-                                                         <p class="relative text-slate-400 text-[10px] mt-4 opacity-70">Observera: Denna chatt är en demonstration.</p>
+                                        <!-- NY WRAPPER FÖR ATT SKJUTA SKÄRMARNA I SIDLED -->
+                                        <div id="screen-wrapper" class="flex h-full w-[400%] transition-transform duration-300 ease-out">
+                                            <!-- Skärm 0: Chatt med Klara -->
+                                            <div id="app-screen-0" class="app-screen w-[25%]">
+                                                <div class="app-chat-container">
+                                                    <div id="app-chat-messages" class="is-idle">
+                                                        <div class="relative text-center p-4">
+                                                             <div id="klara-glow" class="absolute inset-0 m-auto w-40 h-40 blur-3xl rounded-full"></div>
+                                                             <img src="https://raw.githubusercontent.com/GusHem/GusHem-Ugglan-Klara/refs/heads/main/frilagd-bild.svg" alt="Klara" class="relative w-20 h-20 mx-auto mt-4 mb-4 animate-float">
+                                                             <p class="relative font-bold text-white text-base">Hej! Jag är Klara.</p>
+                                                             <p class="relative text-slate-300 text-xs mt-1">Fråga mig om att boka catering!</p>
+                                                             <p class="relative text-slate-400 text-[10px] mt-4 opacity-70">Observera: Denna chatt är en demonstration.</p>
+                                                        </div>
+                                                    </div>
+                                                    <form id="app-chat-form">
+                                                        <input type="text" id="app-chat-input" placeholder="Skriv ditt meddelande..." autocomplete="off">
+                                                        <button type="submit"><i class="ph-paper-plane-tilt text-lg"></i></button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <!-- Skärm 1: Inspiration -->
+                                            <div id="app-screen-1" class="app-screen w-[25%]">
+                                                <div id="media-container-1" class="w-full h-full hidden"></div>
+                                                <label class="upload-placeholder">
+                                                    <i class="ph-image text-2xl"></i>
+                                                    <span class="text-xs mt-1 font-medium">Ladda upp inspiration</span>
+                                                    <p class="text-[10px] text-slate-500 mt-1">(Bilder, video eller PDF)</p>
+                                                </label>
+                                                <input type="file" id="upload-input-1" class="hidden" accept="image/*,video/*,application/pdf">
+                                            </div>
+                                            <!-- Skärm 2: Dokument -->
+                                            <div id="app-screen-2" class="app-screen w-[25%]">
+                                                <div id="media-container-2" class="w-full h-full hidden"></div>
+                                                <label class="upload-placeholder">
+                                                    <i class="ph-file-text text-2xl"></i>
+                                                    <span class="text-xs mt-1 font-medium">Ladda upp dokument</span>
+                                                    <p class="text-[10px] text-slate-500 mt-1">(Gästlistor, menyer etc.)</p>
+                                                </label>
+                                                <input type="file" id="upload-input-2" class="hidden" accept="image/*,video/*,application/pdf,.doc,.docx,.xls,.xlsx">
+                                            </div>
+                                            <!-- Skärm 3: Anpassad Klara -->
+                                            <div id="app-screen-3" class="app-screen w-[25%] flex flex-col">
+                                                <div class="flex-grow flex items-center justify-center p-4">
+                                                    <div class="text-center">
+                                                        <img src="https://raw.githubusercontent.com/GusHem/GusHem-Ugglan-Klara/refs/heads/main/Klara%20Hardhatt.svg" alt="Anpassad Klara" class="relative w-20 h-20 mx-auto mt-4 mb-4 animate-float">
+                                                        <p class="font-bold text-white text-base">Skräddarsydd för er</p>
+                                                        <p class="text-slate-300 text-xs mt-1 max-w-[200px] mx-auto">Klara kan anpassas med expertis och design för just er bransch – från finans till bygg.</p>
                                                     </div>
                                                 </div>
-                                                <form id="app-chat-form">
-                                                    <input type="text" id="app-chat-input" placeholder="Skriv ditt meddelande..." autocomplete="off">
-                                                    <button type="submit"><i class="ph-paper-plane-tilt text-lg"></i></button>
-                                                </form>
+                                                <div class="flex-shrink-0" style="height: 60px;"></div>
                                             </div>
-                                        </div>
-                                        <!-- Skärm 1: Inspiration -->
-                                        <div id="app-screen-1" class="app-screen hidden">
-                                            <div id="media-container-1" class="w-full h-full hidden"></div>
-                                            <label class="upload-placeholder">
-                                                <i class="ph-image text-2xl"></i>
-                                                <span class="text-xs mt-1 font-medium">Ladda upp inspiration</span>
-                                                <p class="text-[10px] text-slate-500 mt-1">(Bilder, video eller PDF)</p>
-                                            </label>
-                                            <input type="file" id="upload-input-1" class="hidden" accept="image/*,video/*,application/pdf">
-                                        </div>
-                                        <!-- Skärm 2: Dokument -->
-                                        <div id="app-screen-2" class="app-screen hidden">
-                                            <div id="media-container-2" class="w-full h-full hidden"></div>
-                                            <label class="upload-placeholder">
-                                                <i class="ph-file-text text-2xl"></i>
-                                                <span class="text-xs mt-1 font-medium">Ladda upp dokument</span>
-                                                <p class="text-[10px] text-slate-500 mt-1">(Gästlistor, menyer etc.)</p>
-                                            </label>
-                                            <input type="file" id="upload-input-2" class="hidden" accept="image/*,video/*,application/pdf,.doc,.docx,.xls,.xlsx">
-                                        </div>
-                                        <!-- Skärm 3: Anpassad Klara -->
-                                        <div id="app-screen-3" class="app-screen hidden flex flex-col">
-                                            <div class="flex-grow flex items-center justify-center p-4">
-                                                <div class="text-center">
-                                                    <img src="https://raw.githubusercontent.com/GusHem/GusHem-Ugglan-Klara/refs/heads/main/Klara%20Hardhatt.svg" alt="Anpassad Klara" class="relative w-20 h-20 mx-auto mt-4 mb-4 animate-float">
-                                                    <p class="font-bold text-white text-base">Skräddarsydd för er</p>
-                                                    <p class="text-slate-300 text-xs mt-1 max-w-[200px] mx-auto">Klara kan anpassas med expertis och design för just er bransch – från finans till bygg.</p>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0" style="height: 60px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -814,20 +817,20 @@
             setupVideoUploader('video-upload-3', 'uploaded-video-3', 'video-placeholder-3');
 
             
-            // --- START: Draggable Slider Navigation ---
+            // --- START: Draggable Slider Navigation (UPPDATERAD MED REAL-TIME SLIDING) ---
             function initSliderNav() {
                 const track = document.getElementById('nav-track');
                 const thumb = document.getElementById('nav-thumb');
                 const thumbIcon = document.getElementById('thumb-icon');
                 const inactiveIcons = document.querySelectorAll('#inactive-icons i');
-                const appScreens = document.querySelectorAll('.app-screen');
+                const screenWrapper = document.getElementById('screen-wrapper'); // NY wrapper
 
-                if (!track || !thumb || appScreens.length === 0) {
+                if (!track || !thumb || !screenWrapper) {
                     console.warn('Slider nav elements not found.');
                     return;
                 }
 
-                const numStops = appScreens.length;
+                const numStops = 4; // Hårdkodat till 4 skärmar
                 const iconClasses = ['ph-house', 'ph-image', 'ph-file-text', 'ph-gear'];
                 let currentIndex = 0;
                 let isDragging = false;
@@ -845,7 +848,6 @@
                         snapPoints.push((usableWidth / (numStops - 1)) * i + paddingOffset);
                     }
                     
-                    // Uppdatera positionen om den redan är inställd
                     gsap.to(thumb, { left: snapPoints[currentIndex], duration: 0 });
                 }
 
@@ -855,15 +857,25 @@
                     const oldIndex = currentIndex;
                     currentIndex = newIndex;
                     
-                    // Byt skärm
-                    appScreens.forEach((screen, index) => {
-                        screen.classList.toggle('hidden', index !== currentIndex);
-                    });
+                    // Byt skärm via CSS transform
+                    if (screenWrapper) {
+                        if (isInstant) {
+                            screenWrapper.style.transition = 'none';
+                            // En timeout för att säkerställa att transitionen är avstängd innan transform sker
+                            setTimeout(() => {
+                                screenWrapper.style.transform = `translateX(-${newIndex * 25}%)`;
+                                // Sätt tillbaka transitionen
+                                setTimeout(() => screenWrapper.style.transition = '', 50);
+                            }, 0);
+                        } else {
+                            screenWrapper.style.transform = `translateX(-${newIndex * 25}%)`;
+                        }
+                    }
 
                     // Byt ikon i tummen
                     thumbIcon.className = `${iconClasses[currentIndex]} text-lg`;
 
-                    // Animera till rätt position
+                    // Animera tummen till rätt position
                     gsap.to(thumb, { 
                         left: snapPoints[currentIndex], 
                         duration: isInstant ? 0 : 0.3, 
@@ -904,17 +916,28 @@
                     let newLeft = startLeft + diffX;
                     
                     // Begränsa inom spåret
-                    const minLeft = snapPoints[0] - 5; // lite överdrag
-                    const maxLeft = snapPoints[numStops - 1] + 5; // lite överdrag
+                    const minLeft = snapPoints[0];
+                    const maxLeft = snapPoints[numStops - 1];
                     newLeft = Math.max(minLeft, Math.min(newLeft, maxLeft));
-
                     thumb.style.left = newLeft + 'px';
+
+                    // Realtids-sliding av skärm-wrapper
+                    if(screenWrapper) {
+                        screenWrapper.style.transition = 'none'; // Stäng av transition under drag
+                        const usableWidth = maxLeft - minLeft;
+                        const progress = (newLeft - minLeft) / usableWidth;
+                        const totalSlidePercent = -75; // (numStops - 1) * -25%
+                        screenWrapper.style.transform = `translateX(${progress * totalSlidePercent}%)`;
+                    }
                 }
 
                 function endDrag() {
                     if (!isDragging) return;
                     isDragging = false;
                     thumb.classList.remove('grabbing');
+                    if (screenWrapper) {
+                        screenWrapper.style.transition = ''; // Sätt tillbaka transition för snapp-effekten
+                    }
                     document.removeEventListener('mousemove', onDrag);
                     document.removeEventListener('touchmove', onDrag);
                     document.removeEventListener('mouseup', endDrag);
@@ -937,7 +960,7 @@
                 
                 // Initiering
                 calculateSnapPoints();
-                updateUI(0, true); // Sätt startläge direkt
+                updateUI(0, true); 
                 
                 thumb.addEventListener('mousedown', startDrag);
                 thumb.addEventListener('touchstart', startDrag, { passive: false });
@@ -1141,7 +1164,7 @@
                 });
             }
 
-            // UPPDATERAD: Initiera storleksändring för videokontainrar (alla hörn/sidor)
+            // UPPDATERAD: Initiera storleksändring för videokontainrar (FIXAD BUGG)
             function initResizableContainers() {
                 const containers = document.querySelectorAll('.resizable-video-container');
 
@@ -1149,7 +1172,7 @@
                     const handles = container.querySelectorAll('.resize-handle');
                     if (handles.length === 0) return;
 
-                    let startX, startY, startWidth, startHeight, startRect;
+                    let startX, startY, startWidth, startHeight, startTop, startLeft;
                     let activeHandle;
 
                     const startResize = (e) => {
@@ -1162,15 +1185,20 @@
                         
                         startX = clientX;
                         startY = clientY;
-                        startRect = container.getBoundingClientRect();
+
+                        const rect = container.getBoundingClientRect();
+                        startWidth = rect.width;
+                        startHeight = rect.height;
+                        // Absolut position inklusive scroll-offset för att förhindra hopp
+                        startTop = rect.top + window.scrollY;
+                        startLeft = rect.left + window.scrollX;
                         
-                        // Temporarily remove mx-auto and set position explicitly to allow resizing from all directions
                         container.classList.remove('mx-auto');
                         container.style.position = 'absolute';
-                        container.style.left = `${startRect.left}px`;
-                        container.style.top = `${startRect.top}px`;
-                        container.style.width = `${startRect.width}px`;
-                        container.style.height = `${startRect.height}px`;
+                        container.style.top = `${startTop}px`;
+                        container.style.left = `${startLeft}px`;
+                        container.style.width = `${startWidth}px`;
+                        container.style.height = `${startHeight}px`;
 
                         document.body.style.cursor = window.getComputedStyle(activeHandle).cursor;
 
@@ -1191,29 +1219,29 @@
                         const deltaY = clientY - startY;
                         const direction = activeHandle.dataset.direction;
 
-                        let newWidth = startRect.width;
-                        let newHeight = startRect.height;
-                        let newLeft = startRect.left;
-                        let newTop = startRect.top;
+                        let newWidth = startWidth;
+                        let newHeight = startHeight;
+                        let newLeft = startLeft;
+                        let newTop = startTop;
 
                         if (direction.includes('e')) {
-                            newWidth = startRect.width + deltaX;
+                            newWidth = startWidth + deltaX;
                         }
                         if (direction.includes('w')) {
-                            newWidth = startRect.width - deltaX;
-                            newLeft = startRect.left + deltaX;
+                            newWidth = startWidth - deltaX;
+                            newLeft = startLeft + deltaX;
                         }
                         if (direction.includes('s')) {
-                            newHeight = startRect.height + deltaY;
+                            newHeight = startHeight + deltaY;
                         }
                         if (direction.includes('n')) {
-                            newHeight = startRect.height - deltaY;
-                            newTop = startRect.top + deltaY;
+                            newHeight = startHeight - deltaY;
+                            newTop = startTop + deltaY;
                         }
 
-                        // Apply new dimensions and position
-                        container.style.width = `${Math.max(300, newWidth)}px`; // Enforce min-width
-                        container.style.height = `${Math.max(200, newHeight)}px`; // Enforce min-height
+                        // Applicera nya dimensioner och position
+                        container.style.width = `${Math.max(300, newWidth)}px`; // Sätt min-width
+                        container.style.height = `${Math.max(200, newHeight)}px`; // Sätt min-height
                         container.style.left = `${newLeft}px`;
                         container.style.top = `${newTop}px`;
                     };
@@ -1222,11 +1250,10 @@
                         if (!activeHandle) return;
                         activeHandle = null;
 
-                        // Restore original positioning classes and clear inline styles
+                        // Återställ till normalt flöde och centrera med nya dimensioner
                         container.style.position = '';
                         container.style.left = '';
                         container.style.top = '';
-                        // Behåll width/height men ta bort resten
                         container.classList.add('mx-auto');
                         document.body.style.cursor = '';
 
