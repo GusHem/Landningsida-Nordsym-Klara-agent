@@ -448,13 +448,7 @@
                                 </div>
                             </nav>
 
-                            <!-- Temaväljare -->
-                            <div id="theme-selector" class="flex justify-center gap-3 mt-4">
-                                <button data-theme="rymd" class="theme-btn active" style="background-color: #4a3a99;"></button>
-                                <button data-theme="skog" class="theme-btn" style="background-color: #2f855a;"></button>
-                                <button data-theme="hav" class="theme-btn" style="background-color: #3182ce;"></button>
-                                <button data-theme="solnedgång" class="theme-btn" style="background-color: #dd6b20;"></button>
-                            </div>
+                            <!-- BORTTAGET: Temaväljare -->
                         </div>
                     </div>
                 </div>
@@ -1143,25 +1137,10 @@
             setupLeadUploader('lead-upload-input', 'lead-upload-preview', 'lead-upload-container');
 
 
-            // Temaväljare logik
-            const themeSelector = document.getElementById('theme-selector');
+            // UPPDATERAT: Sätt standardtema för appen
             const phoneScreen = document.querySelector('.phone-screen');
-            const themeButtons = document.querySelectorAll('.theme-btn');
-
             if (phoneScreen) {
-                 phoneScreen.classList.add('theme-rymd'); // Sätt start-tema
-            }
-
-            if (themeSelector && phoneScreen) {
-                themeSelector.addEventListener('click', (e) => {
-                    if (e.target.matches('.theme-btn')) {
-                        const theme = e.target.dataset.theme;
-                        phoneScreen.classList.remove('theme-rymd', 'theme-skog', 'theme-hav', 'theme-solnedgång');
-                        phoneScreen.classList.add(`theme-${theme}`);
-                        themeButtons.forEach(btn => btn.classList.remove('active'));
-                        e.target.classList.add('active');
-                    }
-                });
+                 phoneScreen.classList.add('theme-solnedgång'); // Sätt "solnedgång" som start-tema
             }
 
             // UPPDATERAD: Initiera storleksändring för videokontainrar (FIXAD BUGG)
@@ -1274,4 +1253,5 @@
     </script>
 </body>
 </html>
+
 
