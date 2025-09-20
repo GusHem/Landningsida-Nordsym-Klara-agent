@@ -350,7 +350,6 @@
             padding-top: 4rem;
             padding-bottom: 4rem;
             border-top: 1px solid rgba(var(--nord-sym-cyan-rgb), 0.1);
-            margin-top: 4rem;
         }
 
     </style>
@@ -502,64 +501,66 @@
                  </div>
             </div>
             <!-- NYTT: Navigering för tratten -->
-            <div class="funnel-nav container mx-auto px-6">
+            <div class="funnel-nav container mx-auto px-6 mt-16">
                 <button type="button" id="goToStep2" class="btn-base btn-cta-revised">Nästa steg: Kvalificera</button>
             </div>
         </section>
         
-        <!-- ======================= LAGER 2: KVALIFICERA LEAD ======================= -->
-        <section id="layer-2" class="py-20 lg:py-0" style="display: none;">
-            <div class="min-h-screen flex items-center justify-center">
-                <div class="container mx-auto px-6 text-center">
-                    <div id="welcome-banner" class="max-w-2xl mx-auto">
-                        <img src="https://raw.githubusercontent.com/GusHem/Logga-utan-text/refs/heads/main/Final%20logo%20no%20text.svg" alt="NordSym Logotyp" class="h-20 mx-auto mb-6">
-                        <h2 class="text-3xl md:text-4xl font-bold text-white">Tack! Du är ett steg närmare.</h2>
-                        <p class="mt-4 text-lg text-slate-300">För att vi ska kunna ge dig den bästa möjliga upplevelsen, berätta gärna lite mer om dina behov.</p>
-                        
-                        <div id="detailsFormContainer" class="mt-8 text-left">
-                            <form id="detailsForm" class="space-y-4">
-                                 <input type="hidden" id="detailsEmail" name="email">
-                                 <input type="hidden" name="_subject" value="Utökad intresseanmälan för Klara AI!">
+        <!-- ======================= LAGER 2: KVALIFICERA LEAD (OMBYGGD LAYOUT) ======================= -->
+        <section id="layer-2" class="py-24" style="display: none;">
+            <div class="container mx-auto px-6 space-y-24">
+                
+                <!-- Del 1: Formulär -->
+                <div id="welcome-banner" class="max-w-3xl mx-auto text-center">
+                    <img src="https://raw.githubusercontent.com/GusHem/Logga-utan-text/refs/heads/main/Final%20logo%20no%20text.svg" alt="NordSym Logotyp" class="h-20 mx-auto mb-6">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">Tack! Du är ett steg närmare.</h2>
+                    <p class="mt-4 text-lg text-slate-300">För att vi ska kunna ge dig den bästa möjliga upplevelsen, berätta gärna lite mer om dina behov.</p>
+                    
+                    <div id="detailsFormContainer" class="mt-12 text-left">
+                        <form id="detailsForm" class="space-y-6">
+                             <input type="hidden" id="detailsEmail" name="email">
+                             <input type="hidden" name="_subject" value="Utökad intresseanmälan för Klara AI!">
+                            <div class="grid sm:grid-cols-2 gap-6">
                                 <div>
-                                    <label for="name" class="block text-sm font-medium text-slate-300 mb-1">Ditt namn</label>
+                                    <label for="name" class="block text-sm font-medium text-slate-300 mb-2">Ditt namn</label>
                                     <input type="text" id="name" name="name" class="form-input" placeholder="Förnamn Efternamn" required>
                                 </div>
                                 <div>
-                                    <label for="company" class="block text-sm font-medium text-slate-300 mb-1">Företagsnamn</label>
+                                    <label for="company" class="block text-sm font-medium text-slate-300 mb-2">Företagsnamn</label>
                                     <input type="text" id="company" name="company" class="form-input" placeholder="Ditt Företag AB">
                                 </div>
-                                <div>
-                                    <label for="role" class="block text-sm font-medium text-slate-300 mb-1">Din roll</label>
-                                    <input type="text" id="role" name="role" class="form-input" placeholder="Eventansvarig, VD, Assistent...">
+                            </div>
+                            <div>
+                                <label for="role" class="block text-sm font-medium text-slate-300 mb-2">Din roll</label>
+                                <input type="text" id="role" name="role" class="form-input" placeholder="Eventansvarig, VD, Assistent...">
+                            </div>
+                            <div>
+                                <label for="goal" class="block text-sm font-medium text-slate-300 mb-2">Era utmaningar & mål</label>
+                                <textarea id="goal" name="goal" rows="5" class="form-input" placeholder="Beskriv de flaskhalsar, tidstjuvar eller tillväxthinder ni står inför. Ju mer detaljer, desto bättre kan vi hjälpa er."></textarea>
+                            </div>
+                             <div>
+                                <label for="lead-upload-input" class="block text-sm font-medium text-slate-300 mb-2">Bifoga underlag (valfritt)</label>
+                                <div id="lead-upload-container">
+                                    <label for="lead-upload-input" class="upload-placeholder !p-6 !rounded-lg !border-slate-600">
+                                        <div class="text-center">
+                                            <i class="ph-upload-simple text-3xl text-slate-400"></i>
+                                            <p class="font-semibold text-sm mt-2 text-slate-300">Dra & släpp eller klicka för att ladda upp</p>
+                                            <p class="text-xs text-slate-500 mt-1">Perfekt för RFP, projektbeskrivningar eller er nuvarande process.</p>
+                                        </div>
+                                    </label>
+                                    <input type="file" id="lead-upload-input" class="hidden">
+                                    <div id="lead-upload-preview" class="hidden mt-2"></div>
                                 </div>
-                                <div>
-                                    <!-- UPPDATERAD TEXT -->
-                                 <!-- NYTT: Filuppladdning för leads (OMGJORD) -->
-                                 <div>
-                                    <label for="lead-upload-input" class="block text-sm font-medium text-slate-300 mb-1">Bifoga underlag (valfritt)</label>
-                                    <div id="lead-upload-container">
-                                        <label for="lead-upload-input" class="upload-placeholder !p-6 !rounded-lg !border-slate-600">
-                                            <div class="text-center">
-                                                <i class="ph-upload-simple text-3xl text-slate-400"></i>
-                                                <p class="font-semibold text-sm mt-2 text-slate-300">Dra & släpp eller klicka för att ladda upp</p>
-                                                <p class="text-xs text-slate-500 mt-1">Perfekt för RFP, projektbeskrivningar eller er nuvarande process.</p>
-                                            </div>
-                                        </label>
-                                        <input type="file" id="lead-upload-input" class="hidden">
-                                        <div id="lead-upload-preview" class="hidden mt-2"></div>
-                                    </div>
-                                </div>
-                                <div class="pt-4">
-                                     <button type="submit" class="btn-base btn-cta-revised w-full">Skicka & fortsätt</button>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="pt-4">
+                                 <button type="submit" class="btn-base btn-cta-revised w-full">Skicka & fortsätt</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </div>
-             <!-- Video Sektion 2 -->
-             <div id="video-section-2" class="min-h-screen flex items-center py-20 lg:py-16">
-                 <div class="container mx-auto px-6 text-center w-full">
+
+                <!-- Del 2: Video Sektion -->
+                <div id="video-section-2" class="text-center">
                      <h2 class="text-3xl md:text-4xl font-bold text-white">Teknologin som driver framtiden</h2>
                      <p class="mt-4 text-lg text-slate-300 max-w-2xl mx-auto">Kliv in bakom kulisserna och se visionen och expertisen som gör NordSym till en ledare inom skräddarsydda AI-ekosystem.</p>
                      <div class="mt-10 bg-slate-900/50 border border-slate-700 rounded-2xl max-w-7xl mx-auto flex items-center justify-center w-full resizable-video-container">
@@ -575,12 +576,14 @@
                         <video id="uploaded-video-2" class="w-full h-full object-cover absolute top-0 left-0 hidden" controls></video>
                         <div class="resize-handle handle-nw" data-direction="nw"></div><div class="resize-handle handle-n" data-direction="n"></div><div class="resize-handle handle-ne" data-direction="ne"></div><div class="resize-handle handle-w" data-direction="w"></div><div class="resize-handle handle-e" data-direction="e"></div><div class="resize-handle handle-sw" data-direction="sw"></div><div class="resize-handle handle-s" data-direction="s"></div><div class="resize-handle handle-se" data-direction="se"></div>
                     </div>
-                 </div>
-            </div>
-            <!-- NYTT: Navigering för tratten -->
-            <div class="funnel-nav container mx-auto px-6">
-                <button type="button" id="backToStep1" class="btn-base btn-secondary">Föregående steg</button>
-                <button type="button" id="goToStep3" class="btn-base btn-cta-revised">Nästa steg: Utforska</button>
+                </div>
+
+                <!-- Del 3: Navigering -->
+                <div class="funnel-nav container mx-auto px-6 !mt-0 !pt-0">
+                    <button type="button" id="backToStep1" class="btn-base btn-secondary">Föregående steg</button>
+                    <button type="button" id="goToStep3" class="btn-base btn-cta-revised">Nästa steg: Utforska</button>
+                </div>
+
             </div>
         </section>
 
@@ -1043,7 +1046,7 @@
                 if (!userText) return;
 
                 if (!isChatStarted) {
-                    const idleContent = appChatMessages.querySelector('.relative');
+                    const idleContent = app-chat-messages.querySelector('.relative');
                     if (idleContent) {
                         gsap.to(idleContent, {
                             opacity: 0,
@@ -1350,6 +1353,4 @@
     </script>
 </body>
 </html>
-
-
 
