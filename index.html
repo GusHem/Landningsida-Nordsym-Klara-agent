@@ -59,6 +59,19 @@
             transform: translateY(-3px) scale(1.03);
             color: var(--nord-sym-deep-space-blue);
         }
+        /* NYTT: Sekundär knappstil */
+        .btn-secondary {
+            padding: 0.85rem 2.25rem;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.8);
+            color: white;
+            transform: translateY(-3px);
+        }
         .phone-nav-container {
             display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
         }
@@ -327,6 +340,18 @@
         .handle-s { bottom: -4px; }
         .handle-w { left: -4px; }
         .handle-e { right: -4px; }
+        
+        /* NYTT: CTA-navigering för tratten */
+        .funnel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+            border-top: 1px solid rgba(var(--nord-sym-cyan-rgb), 0.1);
+            margin-top: 4rem;
+        }
 
     </style>
 </head>
@@ -355,7 +380,8 @@
                                 Revolutionera er <span style="color: var(--nord-sym-light-accent);">eventplanering</span>.
                             </h1>
                             <p class="mt-6 text-lg md:text-xl text-slate-300 max-w-xl mx-auto lg:mx-0">
-                                Klara, er personliga AI-assistent, sköter allt från menyer till logistik. Få mer tid över till det som verkligen räknas – era gäster.
+                                <!-- UPPDATERAD TEXT -->
+                                För era kunder är Klara en vänlig eventkoordinator. För er är Klara ett intelligent ekosystem som sömlöst hanterar och skalar er verksamhet.
                             </p>
                             
                             <div id="emailFormContainer" class="mt-10 max-w-lg mx-auto lg:mx-0">
@@ -398,7 +424,7 @@
                                             <!-- Skärm 1: Inspiration -->
                                             <div id="app-screen-1" class="app-screen w-[25%]">
                                                 <div id="media-container-1" class="w-full h-full hidden"></div>
-                                                <label class="upload-placeholder">
+                                                <label id="placeholder-1" for="upload-input-1" class="upload-placeholder">
                                                     <i class="ph-image text-2xl"></i>
                                                     <span class="text-xs mt-1 font-medium">Ladda upp inspiration</span>
                                                     <p class="text-[10px] text-slate-500 mt-1">(Bilder, video eller PDF)</p>
@@ -408,7 +434,7 @@
                                             <!-- Skärm 2: Dokument -->
                                             <div id="app-screen-2" class="app-screen w-[25%]">
                                                 <div id="media-container-2" class="w-full h-full hidden"></div>
-                                                <label class="upload-placeholder">
+                                                <label id="placeholder-2" for="upload-input-2" class="upload-placeholder">
                                                     <i class="ph-file-text text-2xl"></i>
                                                     <span class="text-xs mt-1 font-medium">Ladda upp dokument</span>
                                                     <p class="text-[10px] text-slate-500 mt-1">(Gästlistor, menyer etc.)</p>
@@ -420,45 +446,39 @@
                                                 <div class="flex-grow flex items-center justify-center p-4">
                                                     <div class="text-center">
                                                         <img src="https://raw.githubusercontent.com/GusHem/GusHem-Ugglan-Klara/refs/heads/main/Klara%20Hardhatt.svg" alt="Anpassad Klara" class="relative w-20 h-20 mx-auto mt-4 mb-4 animate-float">
-                                                        <p class="font-bold text-white text-base">Skräddarsydd för er</p>
-                                                        <p class="text-slate-300 text-xs mt-1 max-w-[200px] mx-auto">Klara kan anpassas med expertis och design för just er bransch – från finans till bygg.</p>
+                                                        <p class="font-bold text-white text-base">Växer med er</p>
+                                                        <p class="text-slate-300 text-xs mt-1 max-w-[200px] mx-auto">Klara växer med er verksamhet och kan sömlöst byggas ut för att integrera andra delar av era operationer.</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex-shrink-0" style="height: 60px;"></div>
                                             </div>
                                         </div>
+                                        <!-- BORTTAGET: Helskärmsvideospelaren har tagits bort för att videor ska visas i sin egen flik -->
                                     </div>
+                                    <!-- Navigering (Flyttad INNANFÖR phone-screen) -->
+                                    <nav class="app-nav mx-auto">
+                                        <div class="app-nav-slider-track" id="nav-track">
+                                            <!-- Inactive icons in the background -->
+                                            <div class="app-nav-slider-icons" id="inactive-icons">
+                                                <i class="ph-house"></i>
+                                                <i class="ph-image"></i>
+                                                <i class="ph-file-text"></i>
+                                                <i class="ph-gear"></i>
+                                            </div>
+                                            <!-- Draggable thumb with the active icon inside -->
+                                            <div class="app-nav-slider-thumb" id="nav-thumb">
+                                                <i class="ph-house text-lg" id="thumb-icon"></i>
+                                            </div>
+                                        </div>
+                                    </nav>
                                 </div>
                             </div>
                             
-                            <!-- Navigering -->
-                            <nav class="app-nav">
-                                <div class="app-nav-slider-track" id="nav-track">
-                                    <!-- Inactive icons in the background -->
-                                    <div class="app-nav-slider-icons" id="inactive-icons">
-                                        <i class="ph-house"></i>
-                                        <i class="ph-image"></i>
-                                        <i class="ph-file-text"></i>
-                                        <i class="ph-gear"></i>
-                                    </div>
-                                    <!-- Draggable thumb with the active icon inside -->
-                                    <div class="app-nav-slider-thumb" id="nav-thumb">
-                                        <i class="ph-house text-lg" id="thumb-icon"></i>
-                                    </div>
-                                </div>
-                            </nav>
-
-                            <!-- BORTTAGET: Temaväljare -->
+                            <!-- BORTTAGET: Navigeringen låg tidigare här -->
                         </div>
                     </div>
                 </div>
-                 <!-- Scroll Down Indicator -->
-                 <div class="absolute bottom-10 left-1/2 -translate-x-1/2 text-center hidden lg:block">
-                    <a href="#video-section-1" class="inline-block text-slate-400 hover:text-white transition-colors group">
-                        <span class="text-xs tracking-widest uppercase">Visa Demo</span>
-                        <i class="ph-caret-down text-2xl block mx-auto mt-1 animate-bounce group-hover:animate-none"></i>
-                    </a>
-                </div>
+                 <!-- BORTTAGET: Scroll Down Indicator -->
             </div>
              
              <!-- Video Sektion 1 -->
@@ -480,6 +500,10 @@
                         <div class="resize-handle handle-nw" data-direction="nw"></div><div class="resize-handle handle-n" data-direction="n"></div><div class="resize-handle handle-ne" data-direction="ne"></div><div class="resize-handle handle-w" data-direction="w"></div><div class="resize-handle handle-e" data-direction="e"></div><div class="resize-handle handle-sw" data-direction="sw"></div><div class="resize-handle handle-s" data-direction="s"></div><div class="resize-handle handle-se" data-direction="se"></div>
                     </div>
                  </div>
+            </div>
+            <!-- NYTT: Navigering för tratten -->
+            <div class="funnel-nav container mx-auto px-6">
+                <button type="button" id="goToStep2" class="btn-base btn-cta-revised">Nästa steg: Kvalificera</button>
             </div>
         </section>
         
@@ -509,16 +533,17 @@
                                     <input type="text" id="role" name="role" class="form-input" placeholder="Eventansvarig, VD, Assistent...">
                                 </div>
                                 <div>
-                                    <label for="goal" class="block text-sm font-medium text-slate-300 mb-1">Vad vill du uppnå med Klara?</label>
-                                    <textarea id="goal" name="goal" rows="4" class="form-input" placeholder="Beskriv vilken typ av evenemang du planerar..."></textarea>
-                                </div>
-                                 <!-- NYTT: Filuppladdning för leads -->
+                                    <!-- UPPDATERAD TEXT -->
+                                 <!-- NYTT: Filuppladdning för leads (OMGJORD) -->
                                  <div>
-                                    <label for="lead-upload-input" class="block text-sm font-medium text-slate-300 mb-1">Bifoga fil (valfritt)</label>
+                                    <label for="lead-upload-input" class="block text-sm font-medium text-slate-300 mb-1">Bifoga underlag (valfritt)</label>
                                     <div id="lead-upload-container">
-                                        <label for="lead-upload-input" class="upload-placeholder !flex-row !h-auto p-4 gap-4 !rounded-lg !border-slate-600">
-                                            <i class="ph-paperclip text-2xl"></i>
-                                            <span class="text-xs font-medium">Klicka för att ladda upp en fil</span>
+                                        <label for="lead-upload-input" class="upload-placeholder !p-6 !rounded-lg !border-slate-600">
+                                            <div class="text-center">
+                                                <i class="ph-upload-simple text-3xl text-slate-400"></i>
+                                                <p class="font-semibold text-sm mt-2 text-slate-300">Dra & släpp eller klicka för att ladda upp</p>
+                                                <p class="text-xs text-slate-500 mt-1">Perfekt för RFP, projektbeskrivningar eller er nuvarande process.</p>
+                                            </div>
                                         </label>
                                         <input type="file" id="lead-upload-input" class="hidden">
                                         <div id="lead-upload-preview" class="hidden mt-2"></div>
@@ -535,8 +560,8 @@
              <!-- Video Sektion 2 -->
              <div id="video-section-2" class="min-h-screen flex items-center py-20 lg:py-16">
                  <div class="container mx-auto px-6 text-center w-full">
-                     <h2 class="text-3xl md:text-4xl font-bold text-white">Visualisera ert projekt</h2>
-                     <p class="mt-4 text-lg text-slate-300 max-w-2xl mx-auto">Använd denna yta för att visa upp en mer detaljerad demo, ett kundcase eller en genomgång av era specifika behov.</p>
+                     <h2 class="text-3xl md:text-4xl font-bold text-white">Teknologin som driver framtiden</h2>
+                     <p class="mt-4 text-lg text-slate-300 max-w-2xl mx-auto">Kliv in bakom kulisserna och se visionen och expertisen som gör NordSym till en ledare inom skräddarsydda AI-ekosystem.</p>
                      <div class="mt-10 bg-slate-900/50 border border-slate-700 rounded-2xl max-w-7xl mx-auto flex items-center justify-center w-full resizable-video-container">
                         <div id="video-placeholder-2" class="text-center p-4">
                             <i class="ph-play-circle text-6xl text-slate-500"></i>
@@ -551,6 +576,11 @@
                         <div class="resize-handle handle-nw" data-direction="nw"></div><div class="resize-handle handle-n" data-direction="n"></div><div class="resize-handle handle-ne" data-direction="ne"></div><div class="resize-handle handle-w" data-direction="w"></div><div class="resize-handle handle-e" data-direction="e"></div><div class="resize-handle handle-sw" data-direction="sw"></div><div class="resize-handle handle-s" data-direction="s"></div><div class="resize-handle handle-se" data-direction="se"></div>
                     </div>
                  </div>
+            </div>
+            <!-- NYTT: Navigering för tratten -->
+            <div class="funnel-nav container mx-auto px-6">
+                <button type="button" id="backToStep1" class="btn-base btn-secondary">Föregående steg</button>
+                <button type="button" id="goToStep3" class="btn-base btn-cta-revised">Nästa steg: Utforska</button>
             </div>
         </section>
 
@@ -568,11 +598,11 @@
                             <p class="mt-2 text-slate-400">Vi skickar en konceptbeskrivning direkt till din inkorg.</p>
 
                             <div id="agent-selection" class="grid sm:grid-cols-3 gap-4 mt-8">
-                                <!-- Agent 1 -->
-                                <div class="agent-card" data-agent="Kundtjänst">
-                                    <i class="ph-chats-circle text-3xl text-sky-300 mb-3"></i>
-                                    <h4 class="font-bold text-white">Kundtjänst-assistent</h4>
-                                    <p class="text-xs text-slate-300 mt-1">Svarar på vanliga frågor dygnet runt och minskar belastningen på er support.</p>
+                                <!-- Agent 1 (UPPDATERAD) -->
+                                <div class="agent-card" data-agent="Röst-receptionist">
+                                    <i class="ph-phone-call text-3xl text-sky-300 mb-3"></i>
+                                    <h4 class="font-bold text-white">AI Röst-receptionist</h4>
+                                    <p class="text-xs text-slate-300 mt-1">Hanterar inkommande samtal, bokar möten och vidarekopplar ärenden automatiskt.</p>
                                 </div>
                                  <!-- Agent 2 -->
                                  <div class="agent-card" data-agent="HR">
@@ -619,6 +649,10 @@
                         <div class="resize-handle handle-nw" data-direction="nw"></div><div class="resize-handle handle-n" data-direction="n"></div><div class="resize-handle handle-ne" data-direction="ne"></div><div class="resize-handle handle-w" data-direction="w"></div><div class="resize-handle handle-e" data-direction="e"></div><div class="resize-handle handle-sw" data-direction="sw"></div><div class="resize-handle handle-s" data-direction="s"></div><div class="resize-handle handle-se" data-direction="se"></div>
                     </div>
                  </div>
+            </div>
+            <!-- NYTT: Navigering för tratten -->
+            <div class="funnel-nav container mx-auto px-6">
+                 <button type="button" id="backToStep2" class="btn-base btn-secondary">Föregående steg</button>
             </div>
         </section>
 
@@ -707,6 +741,23 @@
                 });
             }
 
+            // NYTT: Generaliserad övergångsfunktion BAKÅT
+            function reverseTransitionToLayer(fromLayer, toLayer, historyState) {
+                gsap.to(fromLayer, {
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: 'power2.in',
+                    onComplete: () => {
+                        fromLayer.style.display = 'none';
+                        toLayer.style.display = 'block';
+                        window.scrollTo(0, 0);
+                        gsap.from(toLayer, { opacity: 0, duration: 0.8, ease: 'power3.out' });
+                        // Animation kommer från botten istället för toppen
+                        gsap.from(toLayer.querySelector('.container'), { opacity: 0, y: 20, duration: 0.5, delay: 0.3, ease: 'power2.out' });
+                        history.pushState(null, '', historyState);
+                    }
+                });
+            }
 
             // Formspree logik för andra formuläret (kvalificering)
             const detailsForm = document.getElementById('detailsForm');
@@ -977,7 +1028,7 @@
                 let content = `<div class="app-chat-bubble">${text}</div>`;
                 if (sender === 'klara') {
                     content = `
-                        <img src="https://raw.githubusercontent.com/GusHem/GusHem-Ugglan-Klara/refs/heads/main/Klara%20close%20up.svg" alt="Klara" class="app-chat-avatar">
+                        <img src="https://raw.githubusercontent.com/GusHem/GusHem-Ugglan-Klara/main/closupklara.svg" alt="Klara" class="app-chat-avatar">
                         ${content}
                     `;
                 }
@@ -1041,61 +1092,62 @@
                 }, 1200);
             }
 
-            // Logik för uppladdning i appen
-            function setupAppUploader(inputId, containerId, placeholderSelector) {
+            // Logik för uppladdning i appen (OMBYGGD FÖR LOKAL VIDEOHANTERING)
+            function setupAppUploader(inputId, containerId, placeholderId) {
                 const uploadInput = document.getElementById(inputId);
                 const mediaContainer = document.getElementById(containerId);
-                const placeholder = mediaContainer.nextElementSibling; // Placeholder är syskonet
+                const placeholder = document.getElementById(placeholderId);
 
                 if (uploadInput && mediaContainer && placeholder) {
-                    placeholder.addEventListener('click', () => uploadInput.click());
-
                     uploadInput.addEventListener('change', function(event) {
                         const file = event.target.files[0];
                         if (file) {
                             const fileURL = URL.createObjectURL(file);
-                            mediaContainer.innerHTML = ''; // Rensa
+                            mediaContainer.innerHTML = ''; // Rensa tidigare innehåll
 
                             let mediaElement;
-                            if (file.type.startsWith('image/')) {
-                                mediaElement = document.createElement('img');
-                                mediaElement.className = 'w-full h-full object-contain rounded-2xl';
-                            } else if (file.type.startsWith('video/')) {
+
+                            if (file.type.startsWith('video/')) {
                                 mediaElement = document.createElement('video');
                                 mediaElement.className = 'w-full h-full object-contain rounded-2xl';
+                                mediaElement.src = fileURL;
                                 mediaElement.controls = true;
                                 mediaElement.autoplay = true;
-                                mediaElement.muted = true;
+                                mediaElement.muted = true; // Viktigt för autoplay i webbläsare
+                                mediaElement.playsInline = true; // Viktigt för iOS
+                                mediaContainer.appendChild(mediaElement);
+                            } else if (file.type.startsWith('image/')) {
+                                mediaElement = document.createElement('img');
+                                mediaElement.className = 'w-full h-full object-contain rounded-2xl';
+                                mediaElement.src = fileURL;
+                                mediaContainer.appendChild(mediaElement);
                             } else {
-                                // Fallback for other file types, like PDF
-                                let iconClass = 'ph-file'; // Default icon
-                                if (file.type === 'application/pdf') {
-                                    iconClass = 'ph-file-pdf';
-                                } else if (file.name.endsWith('.doc') || file.name.endsWith('.docx')) {
-                                    iconClass = 'ph-file-doc';
-                                }
+                                // Fallback för andra filtyper (PDF, etc.)
+                                let iconClass = 'ph-file';
+                                if (file.type === 'application/pdf') iconClass = 'ph-file-pdf';
+                                else if (file.name.endsWith('.doc') || file.name.endsWith('.docx')) iconClass = 'ph-file-doc';
+                                
                                 mediaContainer.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-center p-4 text-white bg-slate-800/50 rounded-2xl">
                                     <i class="${iconClass} text-6xl text-sky-300"></i>
                                     <p class="font-medium mt-4 text-sm break-all">${file.name}</p>
                                     <p class="text-slate-400 text-xs mt-1">har laddats upp.</p>
                                 </div>`;
                             }
-
-                            if (mediaElement) {
-                                mediaElement.src = fileURL;
-                                mediaContainer.appendChild(mediaElement);
-                            }
                             
+                            // Dölj placeholder och visa media-containern
                             gsap.to(placeholder, { opacity: 0, duration: 0.3, onComplete: () => placeholder.classList.add('hidden') });
                             mediaContainer.classList.remove('hidden');
                             gsap.from(mediaContainer, { opacity: 0, duration: 0.5 });
+
+                            // Återställ input-fältet så att man kan ladda upp samma fil igen
+                            uploadInput.value = null;
                         }
                     });
                 }
             }
 
-            setupAppUploader('upload-input-1', 'media-container-1');
-            setupAppUploader('upload-input-2', 'media-container-2');
+            setupAppUploader('upload-input-1', 'media-container-1', 'placeholder-1');
+            setupAppUploader('upload-input-2', 'media-container-2', 'placeholder-2');
             
             // NYTT: Uploader för formulär på sida 2
             function setupLeadUploader(inputId, previewId, placeholderId) {
@@ -1137,6 +1189,8 @@
             setupLeadUploader('lead-upload-input', 'lead-upload-preview', 'lead-upload-container');
 
 
+            // BORTTAGET: Logiken för att stänga den globala videospelaren behövs inte längre
+            
             // UPPDATERAT: Sätt standardtema för appen
             const phoneScreen = document.querySelector('.phone-screen');
             if (phoneScreen) {
@@ -1249,9 +1303,53 @@
                 });
             }
             initResizableContainers();
+
+            // NYTT: Logik för tratt-navigering
+            const layer1 = document.getElementById('layer-1');
+            const layer2 = document.getElementById('layer-2');
+            const layer3 = document.getElementById('layer-3');
+            const goToStep2Btn = document.getElementById('goToStep2');
+            const backToStep1Btn = document.getElementById('backToStep1');
+            const goToStep3Btn = document.getElementById('goToStep3');
+            const backToStep2Btn = document.getElementById('backToStep2');
+            
+            // Nästa från 1 till 2
+            if (goToStep2Btn) {
+                goToStep2Btn.addEventListener('click', () => {
+                    const userEmail = emailInput.value;
+                    if (userEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userEmail)) {
+                        transitionToLayer(layer1, layer2, '#steg2', userEmail);
+                    } else {
+                        gsap.fromTo(emailInput, { x: -10 }, { x: 10, clearProps: "x", duration: 0.1, repeat: 3 });
+                        emailInput.focus();
+                        emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }
+            // Bakåt från 2 till 1
+            if (backToStep1Btn) {
+                backToStep1Btn.addEventListener('click', () => {
+                    // BUGGFIX: Använder ' ' för att återställa URL:en korrekt
+                    reverseTransitionToLayer(layer2, layer1, ' ');
+                });
+            }
+            // Nästa från 2 till 3
+            if (goToStep3Btn) {
+                goToStep3Btn.addEventListener('click', () => {
+                    // Använder requestSubmit() för att inkludera HTML5-validering
+                    detailsForm.requestSubmit();
+                });
+            }
+            // Bakåt från 3 till 2
+            if (backToStep2Btn) {
+                backToStep2Btn.addEventListener('click', () => {
+                    reverseTransitionToLayer(layer3, layer2, '#steg2');
+                });
+            }
         });
     </script>
 </body>
 </html>
+
 
 
