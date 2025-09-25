@@ -71,13 +71,17 @@
         }
         .footer-link { color: var(--nord-sym-text-medium); transition: color 0.3s ease; }
         .footer-link:hover { color: var(--nord-sym-cyan); }
+        .header-link { font-size: 0.9rem; font-weight: 500; color: var(--nord-sym-text-medium); transition: color 0.3s ease; position: relative; padding: 0.25rem 0; }
+        .header-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--nord-sym-cyan); transition: width 0.3s ease; }
+        .header-link:hover { color: var(--nord-sym-text-light); }
+        .header-link:hover::after { width: 100%; }
 
         /* --- Specifika Stilar för Landningssida --- */
         .phone-mockup {
             background: #1a1c2a; border: 8px solid #111; border-radius: 40px;
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5), inset 0 0 0 2px rgba(255,255,255,0.1);
             overflow: hidden; position: relative; aspect-ratio: 9 / 19.5; width: 100%;
-            max-width: 320px; /* Lite mindre för att passa layouten */
+            max-width: 320px;
             margin: auto;
         }
         .phone-screen {
@@ -227,7 +231,6 @@
              height: 100%;
              object-fit: cover;
         }
-
         .dev-nav-btn {
             background-color: rgba(var(--nord-sym-cyan-rgb), 0.8);
             color: var(--nord-sym-deep-space-blue);
@@ -245,16 +248,46 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(var(--nord-sym-cyan-rgb), 0.3);
         }
-
+        
+        /* --- Custom Calendar --- */
+        #cal-days .cal-day {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            aspect-ratio: 1 / 1;
+        }
+        #cal-days .cal-day:not(.disabled):not(.empty):hover {
+            background-color: rgba(var(--nord-sym-cyan-rgb), 0.2);
+        }
+        #cal-days .cal-day.today {
+            border: 1px solid rgba(var(--nord-sym-cyan-rgb), 0.5);
+        }
+        #cal-days .cal-day.selected {
+            background-color: var(--nord-sym-cyan);
+            color: var(--nord-sym-deep-space-blue);
+            font-weight: bold;
+        }
+        #cal-days .cal-day.disabled {
+            color: rgba(var(--nord-sym-text-medium), 0.3);
+            cursor: not-allowed;
+        }
+        #cal-days .cal-day.empty {
+            cursor: default;
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <header class="w-full absolute top-0 left-0 z-10">
-        <div class="container mx-auto px-6 py-6 flex justify-between items-center">
+    <header class="w-full fixed top-0 left-0 z-50 bg-slate-900/50 backdrop-blur-md border-b border-slate-800/50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" id="logoLink" aria-label="Tillbaka till startsidan">
-                <img src="https://raw.githubusercontent.com/GusHem/Logga-utan-text/refs/heads/main/Final%20logo%20no%20text.svg" alt="NordSym Logotyp" class="h-16">
+                <img src="https://raw.githubusercontent.com/GusHem/Logga-utan-text/refs/heads/main/Final%20logo%20no%20text.svg" alt="NordSym Logotyp" class="h-12">
             </a>
+            <a href="#" class="hidden md:inline-block btn-base btn-cta-revised" style="padding: 0.6rem 1.75rem; font-size: 0.9rem;">Boka Demo</a>
         </div>
     </header>
 
@@ -266,7 +299,7 @@
                     <div class="flex flex-col items-center space-y-16 md:space-y-24">
 
                         <!-- Top Row: Text and Phone -->
-                        <div class="grid lg:grid-cols-2 gap-12 items-center w-full max-w-7xl mx-auto pt-24 lg:pt-0">
+                        <div class="grid lg:grid-cols-2 gap-12 items-center w-full max-w-7xl mx-auto pt-32 lg:pt-24">
                             <!-- Left: Title, Text, Email Form -->
                             <div class="text-center lg:text-left">
                                 <h1 class="text-4xl md:text-5xl lg:text-5xl font-bold leading-tight text-white max-w-xl mx-auto lg:mx-0">
@@ -281,7 +314,7 @@
                                 <div class="mt-10 max-w-lg mx-auto lg:mx-0">
                                      <div class="flex flex-col sm:flex-row gap-4">
                                         <input type="email" id="emailInput" name="email" class="form-input flex-grow" placeholder="din.email@foretag.se" required>
-                                        <button type="button" id="nextStepButton" class="btn-base btn-cta-revised">Anpassa min lösning</button>
+                                        <button type="button" id="nextStepButton" class="btn-base btn-cta-revised">Påbörja anpassning</button>
                                     </div>
                                 </div>
                             </div>
@@ -312,13 +345,13 @@
                                                 </div>
                                                 <!-- Skärm 1: Dokument (Video) -->
                                                 <div class="app-screen w-[33.33%]">
-                                                    <video src="https://firebasestorage.googleapis.com/v0/b/nordsym-funnel.firebasestorage.app/o/Ska%CC%88rminspelning%202025-09-19%20kl.%2009.34.22.mov?alt=media&token=88724b79-28ea-4ae9-a3ab-bc0f54b65bdf" class="w-full h-full object-cover rounded-2xl" autoplay muted loop playsinline></video>
+                                                    <video src="https://firebasestorage.googleapis.com/v0/b/nordsym-funnel.firebasestorage.app/o/Sk%C3%A4rminspelningar%20f%C3%B6r%20klara-appen%2FKlara%20app%20telefon.mov?alt=media&token=bea9cd09-04ff-4301-b0bf-54ea5202a81d" class="w-full h-full object-contain rounded-2xl" autoplay muted loop playsinline></video>
                                                 </div>
                                                 <!-- Skärm 2: Anpassad Klara -->
-                                                <div class="app-screen w-[33.33%] flex flex-col items-center justify-center text-center">
+                                                <div class="app-screen w-[33.33%] flex flex-col items-center justify-center text-center p-2">
                                                      <img src="https://raw.githubusercontent.com/GusHem/GusHem-Ugglan-Klara/refs/heads/main/Klara%20Hardhatt.svg" alt="Anpassad Klara" class="relative w-20 h-20 mx-auto mb-4 animate-float">
                                                      <p class="font-bold text-white text-base">Skräddarsydd för er</p>
-                                                     <p class="text-slate-300 text-xs mt-1 max-w-[200px] mx-auto">Klara kan anpassas med expertis för just er bransch.</p>
+                                                     <p class="text-slate-300 text-xs mt-1 max-w-[200px] mx-auto">Klara kan anpassas med expertis för just eran verksamhet och integreras sömlöst med era befintliga affärssystem.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -342,14 +375,11 @@
                             <h2 class="text-3xl font-bold text-white text-center">Känner du igen dig?</h2>
                             <p class="mt-4 text-lg text-slate-300 text-center">Lägg inte en hel helg på att jaga catering. Låt Klara göra jobbet på 30 sekunder.</p>
                             <div class="mt-8 video-container">
-                                <video id="intro-video" src="https://firebasestorage.googleapis.com/v0/b/nordsym-funnel.firebasestorage.app/o/AI_Solution_Regret.mov?alt=media&token=a7ed42d2-3999-4062-bdee-5e5001524008" controls autoplay loop muted playsinline></video>
+                                <video id="intro-video" src="https://firebasestorage.googleapis.com/v0/b/nordsym-funnel.firebasestorage.app/o/AI_Solution_Regret.mov?alt=media&token=a7ed42d2-3999-4062-bdee-5e5001524008" controls autoplay muted loop playsinline></video>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="fixed bottom-6 right-6 z-50 flex gap-3">
-                <button id="dev-next-1" class="dev-nav-btn">Nästa Steg &rarr;</button>
             </div>
         </section>
         
@@ -371,8 +401,8 @@
                             <div class="text-center">
                                 <img src="https://raw.githubusercontent.com/GusHem/GusHem-Ugglan-Klara/refs/heads/main/Klara%20Hardhatt.svg" alt="Klara med bygghjälm" class="h-20 mx-auto mb-4 animate-float">
                                 <span class="text-sm font-semibold text-sky-400 tracking-wider">STEG 2 / 3</span>
-                                <h3 class="text-2xl font-bold text-white mt-2">Låt Klara bygga er demo</h3>
-                                <p class="mt-2 text-slate-300">Nu tar Klara över. Er input blir ritningen för den personliga demo hon bygger åt er. Berätta vad ni drömmer om, så visar hon hur det kan förverkligas.</p>
+                                <h3 class="text-2xl font-bold text-white mt-2">Anpassa Klara för er verksamhet</h3>
+                                <p class="mt-2 text-slate-300">Nu börjar anpassningen. Din input används för att konfigurera en Klara som är skräddarsydd för just era processer. Beskriv er största utmaning, så visar vi hur applikationen kan lösa den.</p>
                             </div>
                             <form id="detailsForm" class="space-y-4 mt-8">
                                  <input type="hidden" id="detailsEmail" name="email">
@@ -397,87 +427,131 @@
                      </div>
                  </div>
             </div>
-             <div class="fixed bottom-6 right-6 z-50 flex gap-3">
-                <button id="dev-prev-2" class="dev-nav-btn">&larr; Föregående</button>
-                <button id="dev-next-2" class="dev-nav-btn">Nästa Steg &rarr;</button>
-            </div>
         </section>
 
         <!-- ======================= STEG 3: VIDEO 2 & GIVEAWAY ======================= -->
         <section id="step-3" style="position: absolute; left: -9999px; width: 100%;">
-             <div class="min-h-screen flex items-center py-20 lg:py-16">
+             <div class="min-h-screen flex items-center justify-center py-20 lg:py-16">
                 <div class="container mx-auto px-6 w-full">
-                    <div class="grid lg:grid-cols-2 gap-12 items-center">
-                       <!-- Vänster kolumn: Video Placeholder -->
-                        <div class="text-center lg:text-left">
-                           <h2 class="text-3xl md:text-4xl font-bold text-white">Så fungerar ett ekosystem.</h2>
-                           <p class="mt-4 text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0">Vår vision är att skapa AI som inte bara löser en uppgift, utan som blir en integrerad del av er verksamhet. Tänk dig en digital kollega för varje avdelning, alla i perfekt synk. Denna video kommer visualisera exakt det.</p>
-                           <div class="mt-10 video-container bg-slate-900/50 flex items-center justify-center">
-                               <div id="video-placeholder-3" class="text-center p-4">
-                                   <i class="ph-play-circle text-6xl text-slate-500"></i>
-                                   <p class="text-slate-500 mt-2">En anpassad demo förbereds...</p>
-                               </div>
+                    <div class="w-full max-w-md mx-auto text-center">
+                       <span class="text-sm font-semibold text-sky-400 tracking-wider">STEG 3 / 3</span>
+                       <h3 class="text-2xl font-bold text-white mt-2">Välj din bonus</h3>
+                       <p class="mt-2 text-slate-300">Som tack för ditt intresse, välj en av våra färdiga AI-agenter eller beskriv din egen drömassistent. Vi skickar en agent till din mail.</p>
+                       
+                       <div id="agent-selection" class="grid grid-cols-1 gap-4 mt-6 text-left">
+                           <div class="agent-card" data-agent="AI Röst-receptionist">
+                               <i class="ph-phone-call text-3xl text-sky-300 mb-2"></i>
+                               <h4 class="font-bold text-white">AI-driven Röst-receptionist</h4>
+                               <p class="text-xs text-slate-300 mt-1">Svarar på samtal dygnet runt, bokar möten och vidarekopplar intelligent – frigör tid och imponerar på kunder.</p>
                            </div>
-                        </div>
-                       <!-- Höger kolumn: Giveaway -->
-                        <div class="w-full max-w-md mx-auto text-center">
-                           <span class="text-sm font-semibold text-sky-400 tracking-wider">STEG 3 / 3</span>
-                           <h3 class="text-2xl font-bold text-white mt-2">Välj din bonus</h3>
-                           <p class="mt-2 text-slate-300">Som tack för ditt intresse, välj en av våra färdiga AI-agenter eller beskriv din egen drömassistent. Vi skickar en konceptbeskrivning till din mail.</p>
-                           
-                           <div id="agent-selection" class="grid grid-cols-1 gap-4 mt-6 text-left">
-                               <div class="agent-card" data-agent="Proaktiv Kundtjänst">
-                                   <i class="ph-chats-circle text-3xl text-sky-300 mb-2"></i>
-                                   <h4 class="font-bold text-white">Proaktiv Kundtjänst-agent</h4>
-                                   <p class="text-xs text-slate-300 mt-1">Svarar inte bara på frågor, utan förutser kundens behov och löser problem innan de uppstår.</p>
-                               </div>
-                                <div class="agent-card" data-agent="Säljassistent">
-                                   <i class="ph-rocket-launch text-3xl text-sky-300 mb-2"></i>
-                                   <h4 class="font-bold text-white">Automatiserad Säljassistent</h4>
-                                   <p class="text-xs text-slate-300 mt-1">Kvalificerar leads, bokar möten och följer upp – så att ni kan fokusera på att stänga affärer.</p>
-                               </div>
-                                <div class="agent-card" data-agent="custom">
-                                   <i class="ph-star text-3xl text-sky-300 mb-2"></i>
-                                   <h4 class="font-bold text-white">Bygg din egen agent</h4>
-                                   <p class="text-xs text-slate-300 mt-1">Har du en unik idé? Beskriv den nedan så bygger vi ett konceptförslag åt dig.</p>
-                               </div>
+                            <div class="agent-card" data-agent="Viral ASMR-assistent">
+                               <i class="ph-speaker-high text-3xl text-sky-300 mb-2"></i>
+                               <h4 class="font-bold text-white">Viral ASMR-flödesassistent</h4>
+                               <p class="text-xs text-slate-300 mt-1">Skapar och schemalägger oemotståndligt ASMR-innehåll för sociala medier som maximerar engagemang och räckvidd.</p>
                            </div>
-                           
-                           <div id="custom-agent-wrapper" class="mt-4" style="display: none; height: 0; opacity: 0;">
-                                <textarea id="customAgentRequest" name="customAgent" rows="4" class="form-input" placeholder="Beskriv din drömagent här..."></textarea>
+                            <div class="agent-card" data-agent="custom">
+                               <i class="ph-star text-3xl text-sky-300 mb-2"></i>
+                               <h4 class="font-bold text-white">Bygg din egen agent</h4>
+                               <p class="text-xs text-slate-300 mt-1">Har du en unik idé? Beskriv den nedan så bygger vi ett konceptförslag åt dig.</p>
                            </div>
+                       </div>
+                       
+                       <div id="custom-agent-wrapper" class="mt-4" style="display: none; height: 0; opacity: 0;">
+                            <textarea id="customAgentRequest" name="customAgent" rows="4" class="form-input" placeholder="Beskriv din drömagent här..."></textarea>
+                       </div>
 
-                           <div class="mt-6">
-                               <button type="button" id="getAgentButton" class="btn-base btn-cta-revised w-full" disabled>Välj en agent för att slutföra</button>
-                           </div>
-                        </div>
+                       <div class="mt-6">
+                           <button type="button" id="getAgentButton" class="btn-base btn-cta-revised w-full" disabled>Välj en agent för att slutföra</button>
+                       </div>
                     </div>
                 </div>
-            </div>
-             <div class="fixed bottom-6 right-6 z-50 flex gap-3">
-                <button id="dev-prev-3" class="dev-nav-btn">&larr; Föregående</button>
-                <button id="dev-next-3" class="dev-nav-btn">Nästa Steg &rarr;</button>
             </div>
         </section>
 
         <!-- ======================= STEG 4: TACK ======================= -->
         <section id="step-4" style="position: absolute; left: -9999px; width: 100%;">
-            <div class="min-h-screen flex items-center justify-center relative py-20 lg:py-16">
+            <div class="min-h-screen flex items-center justify-center relative py-20 lg:py-16 overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-full z-0">
+                    <video class="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto object-cover transform -translate-x-1/2 -translate-y-1/2" src="https://firebasestorage.googleapis.com/v0/b/nordsym-funnel.firebasestorage.app/o/Ecosystem_Visualization.mp4?alt=media&token=a83a0050-137a-4228-a400-349071a9388c" autoplay muted loop playsinline></video>
+                </div>
                 <div class="absolute top-0 left-0 w-full h-full bg-slate-900/60 z-10"></div>
                 
                 <div class="container mx-auto px-6 text-center w-full relative z-20">
                     <div class="max-w-2xl mx-auto">
                         <i class="ph-paper-plane-tilt text-6xl text-sky-300"></i>
                         <h3 class="text-3xl font-bold text-white mt-6">Allt är klart!</h3>
-                        <p class="mt-3 text-lg text-slate-300">Tack för ditt intresse! Vi har tagit emot din information och din valda agent-beskrivning är på väg till din inkorg. Vi hör av oss snart!</p>
+                        <p class="mt-3 text-lg text-slate-300">Tack för ditt intresse! Vi har tagit emot din information och din valda agent är på väg till din inkorg. Vi hör av oss snart!</p>
                     </div>
                 </div>
             </div>
-             <div class="fixed bottom-6 right-6 z-50 flex gap-3">
-                <button id="dev-prev-4" class="dev-nav-btn">&larr; Föregående</button>
-            </div>
         </section>
     </main>
+
+    <!-- Simple Booking Modal -->
+    <div id="simple-booking-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-md relative p-8">
+            <button id="close-simple-modal-btn" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors text-2xl leading-none">&times;</button>
+
+            <!-- Form View -->
+            <div id="booking-form-view">
+                <h3 class="text-2xl font-bold text-white text-center mb-1">Boka Demo</h3>
+                <p class="text-slate-300 text-center mb-6">Välj en tid som passar dig så återkommer vi med en bekräftelse.</p>
+                <form id="bookingForm" class="space-y-4">
+                     <input type="hidden" name="_subject" value="Ny demobokning!">
+                     <div><input type="text" name="name" class="form-input" placeholder="Ditt namn" required></div>
+                     <div><input type="email" name="email" class="form-input" placeholder="din.email@foretag.se" required></div>
+                     
+                     <div>
+                         <label class="block text-sm font-medium text-slate-300 mb-2 text-left">Välj ett datum</label>
+                         <div id="custom-calendar" class="bg-slate-800/50 rounded-lg p-4 transition-all duration-300">
+                            <div class="flex justify-between items-center mb-3 px-1">
+                                <button type="button" id="cal-prev" class="p-2 rounded-full hover:bg-slate-700/50 transition-colors"><i class="ph ph-caret-left text-xl text-sky-400"></i></button>
+                                <h4 id="cal-month-year" class="font-bold text-white text-lg"></h4>
+                                <button type="button" id="cal-next" class="p-2 rounded-full hover:bg-slate-700/50 transition-colors"><i class="ph ph-caret-right text-xl text-sky-400"></i></button>
+                            </div>
+                            <div class="grid grid-cols-7 gap-1 text-center text-xs text-slate-400 font-semibold mb-2">
+                                <div>Mån</div><div>Tis</div><div>Ons</div><div>Tor</div><div>Fre</div><div>Lör</div><div>Sön</div>
+                            </div>
+                            <div id="cal-days" class="grid grid-cols-7 gap-1">
+                                <!-- Dagar genereras här av JS -->
+                            </div>
+                        </div>
+                         <input type="hidden" id="bookingDate" name="date" required>
+                     </div>
+
+                     <div>
+                         <select name="time" class="form-input" required>
+                            <option value="" disabled selected>Välj en tid...</option>
+                            <option value="09:00 - 09:15">09:00 - 09:15</option>
+                            <option value="09:30 - 09:45">09:30 - 09:45</option>
+                            <option value="10:00 - 10:15" disabled>10:00 - 10:15 (Bokad)</option>
+                            <option value="10:30 - 10:45">10:30 - 10:45</option>
+                            <option value="11:00 - 11:15">11:00 - 11:15</option>
+                            <option value="13:00 - 13:15">13:00 - 13:15</option>
+                            <option value="13:30 - 13:45" disabled>13:30 - 13:45 (Bokad)</option>
+                            <option value="14:00 - 14:15">14:00 - 14:15</option>
+                            <option value="14:30 - 14:45">14:30 - 14:45</option>
+                            <option value="15:00 - 15:15">15:00 - 15:15</option>
+                         </select>
+                     </div>
+
+                     <div>
+                        <textarea name="message" class="form-input" rows="3" placeholder="Lämna ett meddelande (valfritt)"></textarea>
+                     </div>
+
+                     <div class="pt-2"><button type="submit" class="btn-base btn-cta-revised w-full">Skicka bokningsförfrågan</button></div>
+                </form>
+            </div>
+
+            <!-- Success View -->
+            <div id="booking-success-view" class="text-center hidden">
+                <i class="ph-check-circle text-6xl text-sky-300"></i>
+                <h3 class="text-2xl font-bold text-white mt-4">Tack!</h3>
+                <p class="mt-2 text-slate-300">Din bokningsförfrågan har skickats. Vi bekräftar tiden via mail inom kort.</p>
+                <button id="close-success-btn" class="mt-6 btn-base btn-cta-revised">Stäng</button>
+            </div>
+        </div>
+    </div>
 
     <footer class="bg-nord-sym-deep-space-blue/50 border-t border-sky-800/50">
         <div class="container mx-auto px-6 py-8">
@@ -520,6 +594,16 @@
                 });
             }
 
+            // --- Video Autoplay Logic ---
+            // The main intro video should start playing immediately with sound.
+            // Browsers often block this, so we start it muted (to ensure autoplay) and then try to unmute.
+            const introVideo = document.getElementById('intro-video');
+            if (introVideo) {
+                introVideo.muted = false; // Attempt to unmute. Browser might block this, but it's the best approach.
+            }
+            // The phone video is set to autoplay muted via HTML attributes, which is correct.
+            // --- End Video Autoplay Logic ---
+
             gsap.from("#step-1 > div", { opacity: 0, y: 20, duration: 0.8, ease: "power3.out" });
             
             const nextStepButton = document.getElementById('nextStepButton');
@@ -543,6 +627,20 @@
                     const detailsEmailInput = document.getElementById('detailsEmail');
                     if (detailsEmailInput) detailsEmailInput.value = userEmailForFunnel;
                 }
+
+                // Mute video on the layer we are leaving
+                const fromVideos = fromLayer.querySelectorAll('video');
+                fromVideos.forEach(video => {
+                    video.muted = true;
+                });
+
+                // Unmute the main video on the layer we are entering
+                const toVideo = toLayer.querySelector('.video-container video');
+                if (toVideo) {
+                    toVideo.muted = false;
+                    toVideo.play().catch(error => console.log("Autoplay was prevented:", error));
+                }
+
 
                 toLayer.style.position = 'relative';
                 toLayer.style.left = '0';
@@ -571,7 +669,7 @@
                     submitButton.disabled = true;
 
                     const formData = new FormData(detailsForm);
-                    fetch("https://formspree.io/f/xqabggao", { 
+                    fetch("https://formspree.io/f/xzzjzaze", { 
                         method: 'POST', body: formData, headers: {'Accept': 'application/json'}
                     }).then(response => {
                         if (response.ok) {
@@ -644,7 +742,7 @@
                         agentFormData.append('message', `Användaren ${userEmailForFunnel} valde agenten: ${chosenAgent}.`);
                     }
 
-                    fetch("https://formspree.io/f/xqabggao", {
+                    fetch("https://formspree.io/f/xzzjzaze", {
                         method: 'POST', body: agentFormData, headers: {'Accept': 'application/json'}
                     }).then(response => {
                         if(response.ok) {
@@ -744,7 +842,7 @@
             function addAppMessage(sender, text) {
                 const messageEl = document.createElement('div');
                 messageEl.classList.add('app-chat-message', `app-message-${sender}`);
-                messageEl.innerHTML = (sender === 'klara' ? `<img src="https://raw.githubusercontent.com/GusHem/GusHem-Ugglan-Klara/refs/heads/main/Klara%20close%20up.svg" alt="Klara" class="app-chat-avatar">` : '') + `<div class="app-chat-bubble">${text}</div>`;
+                messageEl.innerHTML = (sender === 'klara' ? `<img src="https://raw.githubusercontent.com/GusHem/NordSym-Logga/refs/heads/main/closupklara.svg" alt="Klara" class="app-chat-avatar">` : '') + `<div class="app-chat-bubble">${text}</div>`;
                 appChatMessages.appendChild(messageEl);
                 appChatMessages.scrollTop = appChatMessages.scrollHeight;
             }
@@ -773,25 +871,167 @@
                 }, 1200);
             });
             
-            // --- Development Navigation ---
-            const allSteps = {
-                step1: document.getElementById('step-1'),
-                step2: document.getElementById('step-2'),
-                step3: document.getElementById('step-3'),
-                step4: document.getElementById('step-4'),
-            };
+            // --- Custom Calendar Logic ---
+            function initCustomCalendar() {
+                const monthYearEl = document.getElementById('cal-month-year');
+                const daysEl = document.getElementById('cal-days');
+                const prevBtn = document.getElementById('cal-prev');
+                const nextBtn = document.getElementById('cal-next');
+                const hiddenDateInput = document.getElementById('bookingDate');
 
-            document.getElementById('dev-next-1').addEventListener('click', () => transitionToLayer(allSteps.step1, allSteps.step2));
-            document.getElementById('dev-prev-2').addEventListener('click', () => transitionToLayer(allSteps.step2, allSteps.step1));
-            document.getElementById('dev-next-2').addEventListener('click', () => transitionToLayer(allSteps.step2, allSteps.step3));
-            
-            document.getElementById('dev-prev-3').addEventListener('click', () => transitionToLayer(allSteps.step3, allSteps.step2));
-            document.getElementById('dev-next-3').addEventListener('click', () => transitionToLayer(allSteps.step3, allSteps.step4));
+                if (!monthYearEl || !daysEl || !prevBtn || !nextBtn || !hiddenDateInput) {
+                    console.error('Calendar elements not found');
+                    return;
+                }
 
-            document.getElementById('dev-prev-4').addEventListener('click', () => transitionToLayer(allSteps.step4, allSteps.step3));
+                let currentDate = new Date();
+                currentDate.setDate(1);
+
+                const renderCalendar = () => {
+                    const today = new Date();
+                    const month = currentDate.getMonth();
+                    const year = currentDate.getFullYear();
+
+                    monthYearEl.textContent = `${new Intl.DateTimeFormat('sv-SE', { month: 'long', year: 'numeric' }).format(currentDate)}`;
+                    daysEl.innerHTML = '';
+
+                    const firstDayOfMonth = new Date(year, month, 1).getDay();
+                    const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
+                    
+                    const dayOffset = (firstDayOfMonth === 0) ? 6 : firstDayOfMonth - 1;
+
+                    for (let i = 0; i < dayOffset; i++) {
+                        daysEl.innerHTML += `<div class="cal-day empty"></div>`;
+                    }
+
+                    for (let i = 1; i <= lastDateOfMonth; i++) {
+                        const dayDate = new Date(year, month, i);
+                        const dayEl = document.createElement('div');
+                        dayEl.classList.add('cal-day');
+                        dayEl.textContent = i;
+                        dayEl.dataset.date = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+
+                        if (dayDate < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
+                            dayEl.classList.add('disabled');
+                        }
+
+                        if (i === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                            dayEl.classList.add('today');
+                        }
+                        
+                        if (dayEl.dataset.date === hiddenDateInput.value) {
+                             dayEl.classList.add('selected');
+                        }
+
+                        daysEl.appendChild(dayEl);
+                    }
+                };
+                
+                daysEl.addEventListener('click', (e) => {
+                    const target = e.target.closest('.cal-day');
+                    if (target && !target.classList.contains('disabled') && !target.classList.contains('empty')) {
+                        document.querySelectorAll('#cal-days .cal-day.selected').forEach(el => el.classList.remove('selected'));
+                        target.classList.add('selected');
+                        hiddenDateInput.value = target.dataset.date;
+                    }
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    currentDate.setMonth(currentDate.getMonth() - 1);
+                    renderCalendar();
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    currentDate.setMonth(currentDate.getMonth() + 1);
+                    renderCalendar();
+                });
+
+                renderCalendar();
+            }
+
+            // --- Simple Booking Modal Logic ---
+            const simpleBookingModal = document.getElementById('simple-booking-modal');
+            const demoButton = document.querySelector('header .btn-cta-revised');
+
+            if (simpleBookingModal && demoButton) {
+                const modalContent = simpleBookingModal.querySelector('.bg-slate-900');
+                const closeSimpleModalBtn = document.getElementById('close-simple-modal-btn');
+                const bookingForm = document.getElementById('bookingForm');
+                const formView = document.getElementById('booking-form-view');
+                const successView = document.getElementById('booking-success-view');
+                const closeSuccessBtn = document.getElementById('close-success-btn');
+
+                initCustomCalendar();
+
+                const openModal = () => {
+                    simpleBookingModal.classList.remove('hidden');
+                    gsap.fromTo(modalContent, {opacity: 0, scale: 0.95}, {opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out'});
+                };
+
+                const closeModal = () => {
+                    gsap.to(modalContent, {opacity: 0, scale: 0.95, duration: 0.3, ease: 'power2.in', onComplete: () => {
+                       simpleBookingModal.classList.add('hidden');
+                       formView.classList.remove('hidden');
+                       successView.classList.add('hidden');
+                       bookingForm.reset();
+                   }});
+                };
+
+                demoButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal();
+                });
+
+                closeSimpleModalBtn.addEventListener('click', closeModal);
+                closeSuccessBtn.addEventListener('click', closeModal);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === "Escape" && !simpleBookingModal.classList.contains('hidden')) {
+                        closeModal();
+                    }
+                });
+
+                simpleBookingModal.addEventListener('click', (e) => {
+                    if (e.target === simpleBookingModal) {
+                        closeModal();
+                    }
+                });
+
+                bookingForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const submitButton = bookingForm.querySelector('button[type="submit"]');
+                    submitButton.innerHTML = `<i class="ph-circle-notch animate-spin"></i> Skickar...`;
+                    submitButton.disabled = true;
+
+                    const formData = new FormData(bookingForm);
+                    fetch("https://formspree.io/f/xqayadak", {
+                        method: 'POST', body: formData, headers: {'Accept': 'application/json'}
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            formView.classList.add('hidden');
+                            successView.classList.remove('hidden');
+                        } else {
+                            throw new Error('Form submission failed');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Form error:', error);
+                        // Optionally show an error message to the user here
+                    })
+                    .finally(() => {
+                        submitButton.innerHTML = 'Skicka bokningsförfrågan';
+                        submitButton.disabled = false;
+                    });
+                });
+            }
+
         });
     </script>
 </body>
 </html>
+
+
+
 
 
